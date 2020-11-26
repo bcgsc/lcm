@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--<parent>-->
+		<!--<groupId>qupath</groupId>-->
+		<!--<artifactId>qupath</artifactId>-->
+		<!--<version>0.1.2</version>-->
+	<!--</parent>-->
+
+	<artifactId>qupath-extension-dl4j</artifactId>
+	<name>qupath-extension-dl4j</name>
+	<groupId>qupath</groupId>
+	<version>0.1.2</version>
+
+	<repositories>
+		<repository>
+			<id>snapshots-repo</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>  <!-- Optional, update daily -->
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<properties>
+		<!-- Change the nd4j.backend property to nd4j-cuda-7.5-platform or nd4j-cuda-8.0-platform to use CUDA GPUs -->
+		<!-- <nd4j.backend>nd4j-native-platform</nd4j.backend> -->
+		<nd4j.backend>nd4j-cuda-10.0</nd4j.backend>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<shadedClassifier>bin</shadedClassifier>
+
+
+		<java.version>1.8</java.version>
+		<nd4j.version>1.0.0-beta3</nd4j.version>
+		<dl4j.version>1.0.0-beta3</dl4j.version>
+		<datavec.version>1.0.0-beta3</datavec.version>
+		<arbiter.version>1.0.0</arbiter.version>
+		<rl4j.version>1.0.0</rl4j.version>
+
+		<!-- For Spark examples: change the _1 to _2 to switch between Spark 1 and Spark 2 -->
+		<!--<dl4j.spark.version>0.9.1_spark_1</dl4j.spark.version>-->
+		<!--<datavec.spark.version>0.9.1_spark_1</datavec.spark.version>-->
+
+		<!-- Scala binary version: DL4J's Spark and UI functionality are released with both Scala 2.10 and 2.11 support -->
+		<scala.binary.version>2.11</scala.binary.version>
+
+		<guava.version>19.0</guava.version>
+		<logback.version>1.1.7</logback.version>
+		<jfreechart.version>1.0.13</jfreechart.version>
+		<jcommon.version>1.0.23</jcommon.version>
+		<maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
+		<exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
+		<maven.minimum.version>3.3.1</maven.minimum.version>
+		<javafx.version>2.2.3</javafx.version>
+		<aws.sdk.version>1.11.109</aws.sdk.version>
+		<jackson.version>2.6.6</jackson.version>
+
+
+	</properties>
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>qupath</groupId>
+			<artifactId>qupath-gui-fx</artifactId>
+			<!--<scope>provided</scope>-->
+			<version>0.1.2</version>
+
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>ch.qos.logback</groupId>
+					<artifactId>logback-classic</artifactId>
+				</exclusion>
+			</exclusions>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-cuda-10.0</artifactId>
+			<version>${nd4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-cuda-10.0</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+	<dependency>
+			<groupId>qupath</groupId>
+			<artifactId>qupath-processing-opencv</artifactId>
+			<version>0.1.2</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+
+		<dependency>
+			<groupId>qupath</groupId>
+			<artifactId>qupath-processing-ij</artifactId>
+			<version>0.1.2</version>
+			<!--<scope>provided</scope>-->
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>qupath</groupId>-->
+			<!--<artifactId>qupath-core</artifactId>-->
+			<!--<version>0.1.2</version>-->
+			<!--<scope>provided</scope>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native-platform</artifactId>
+			<version>${nd4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.datavec</groupId>
+			<artifactId>datavec-api</artifactId>
+			<version>${datavec.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-ui_2.11</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-core</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-parallel-wrapper</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-zoo</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-modelimport</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.googlecode.mavennatives</groupId>
+				<artifactId>maven-nativedependencies-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!--<plugin>-->
+				<!--<artifactId>maven-assembly-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<descriptorRefs>-->
+						<!--<descriptorRef>jar-with-dependencies</descriptorRef>-->
+					<!--</descriptorRefs>-->
+				<!--</configuration>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<id>make-assembly</id>-->
+						<!--<phase>package</phase>-->
+						<!--<goals>-->
+							<!--<goal>single</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<shadedClassifierName>${shadedClassifier}</shadedClassifierName>
+					<createDependencyReducedPom>true</createDependencyReducedPom>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>org/datanucleus/**</exclude>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>reference.conf</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>your.main.class.here</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>OpenJFX</id>
+			<activation>
+				<jdk>1.7</jdk>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<version>1.0.1</version>
+						<executions>
+							<execution>
+								<id>enforce-default</id>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<requireProperty>
+											<property>env.JAVAFX_HOME</property>
+											<message>You must set the environment variable JAVAFX_HOME to the installation directory of the JavaFX 2.0 SDK! (with Oracle JDK1.7, $JRE_HOME/lib/jfxrt.jar)</message>
+										</requireProperty>
+
+									</rules>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!--<plugin>-->
+						<!--<groupId>org.apache.maven.plugins</groupId>-->
+						<!--<artifactId>maven-install-plugin</artifactId>-->
+						<!--<version>2.5.2</version>-->
+						<!--<executions>-->
+							<!--<execution>-->
+								<!--<id>install-external</id>-->
+								<!--<phase>clean</phase>-->
+								<!--<configuration>-->
+									<!--<file>${javafx.runtime.lib.jar}</file>-->
+									<!--<repositoryLayout>default</repositoryLayout>-->
+									<!--<groupId>com.oracle</groupId>-->
+									<!--<artifactId>javafx</artifactId>-->
+									<!--<version>${javafx.version}</version>-->
+									<!--<packaging>jar</packaging>-->
+									<!--<generatePom>true</generatePom>-->
+								<!--</configuration>-->
+								<!--<goals>-->
+									<!--<goal>install-file</goal>-->
+								<!--</goals>-->
+							<!--</execution>-->
+						<!--</executions>-->
+					<!--</plugin>-->
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<description>DL4J dependent code for QuPath.</description>
+</project>
+

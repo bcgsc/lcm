@@ -1,0 +1,12 @@
+qupath\dl4j\ClassifyTilesCNNCommand_old_script.class
+qupath\dl4j\ClassifyTilesInteractivePlugin.class
+qupath\dl4j\SaveCNNTrainingDataPlugin$1.class
+qupath\dl4j\SaveCNNTrainingDataPlugin.class
+qupath\dl4j\SaveCNNTrainingDataCommand_old_script.class
+qupath\dl4j\ClassifyTilesPlugin.class
+qupath\dl4j\ClassifyTilesCNNCommand.class
+qupath\dl4j\ClassifyTilesPlugin$1.class
+qupath\dl4j\DL4JExtension.class
+qupath\dl4j\ClassifyTilesInteractivePlugin$1.class
+qupath\dl4j\TrainCNNCommand.class
+qupath\dl4j\SaveCNNTrainingDataCommand.class
